@@ -4,14 +4,21 @@
 const mongoClient = require('mongodb').MongoClient;
 const projectConstants = require('./constants');
 
-global.mongoClient;
+console.log(`Mongo client: ${projectConstants.MONGODB_URL}`);
 
-const client = await mongoClient.connect(projectConstants.MONGODB_URL, {}, function (err, client) {
-    if (err) throw err;
+async function generateClient() {
+    let client = null;
+    try {
+        client = await mongoClient.connect(projectConstants.MONGODB_URL);
+    } catch (e) {
+        console.log(e);
+    }
 
-    console.log('Connected to database');
-});
+    console.log("Connected to mongo db");
+
+    return client;
+}
 
 
 
-module.exports = client;
+module.exports = generateClient;

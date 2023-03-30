@@ -1,26 +1,33 @@
 const express = require('express');
 const app = express();
 const passportConfig = require('./passport-config');
-const mongoClient = require('./mongo-client');
+const generateMongoClient = require('./mongo-client');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const authRoute = require('./auth');
 
+async function beginServer() {
+    const port = 3000;
+    let mongoClient = await generateMongoClient();
+    // Middleware to put contents of raw request body into req.body
+    app.use(bodyParser.json());
 
-const port = 3000;
+    // Configure passport strategies
+    await passportConfig(mongoClient);
 
-// Middleware to put contents of raw request body into req.body
-app.use(bodyParser.json());
+    app.use(passport.initialize());
 
-// Configure passport strategies
-passportConfig(mongoClient);
+    // Configure routes
+    app.use('/auth', await authRoute(mongoClient));
 
-app.use(passport.initialize());
+    app.get('/auth-test', passport.authenticate('jwt', { session: false }), function (req, res) {
+        res.send(`Hello ${req.user.username}`);
+    });
 
-// Configure routes
-app.use('/auth', authRoute(mongoClient));
+    // Start listening for requests
+    app.listen(port, () => {
+        console.log(`Started server; Listening at port ${port}`);
+    });
+}
 
-// Start listening for requests
-app.listen(port, () => {
-    console.log(`Started server; Listening at port ${port}`);
-})
+beginServer();
