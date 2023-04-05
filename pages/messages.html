@@ -5,6 +5,52 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Messages</title>
         <link rel="stylesheet" href="https://unpkg.com/@picocss/pico@1.5.7/css/pico.min.css">
+        <link rel="stylesheet" href="/css/global.css">
+        <link rel="stylesheet" href="/css/messages.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script type="text/javascript" src="/scripts/messages.js"></script>
     </head>
-    <body></body>
+    <body>
+        <main class="container">
+            <nav>
+                <ul>
+                    <li><strong>Messages</strong></li>
+                </ul>
+                <ul>
+                    <li>
+                        <a class="secondary username">Logged in as USERNAME</a>
+                        <a href="#" class="secondary" role="button">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <article class="chat-container">
+                <div id="chat-box">
+                    <div class="dummy-message"></div>
+                    <div class="message">
+                        <div class="message-text">Test Message 1</div>
+                    </div>
+                    <div class="message self">
+                        <div class="message-text">Test Message 2</div>
+                    </div>
+                    <div class="message self">
+                        <div class="message-text">This is a longer message. Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</div>
+                    </div>
+
+                    <div class="message">
+                        <div class="message-text">Test Message 3</div>
+                    </div>
+                    <div class="message">
+                        <div class="message-text">Test Message 4</div>
+                    </div>
+                </div>
+            </article>
+
+            <div class="input-container">
+                <input id="message-input" type="text" placeholder="Type your message...">
+                <button id="message-send">Send</button>
+            </div>
+        </main>
+        
+    </body>
 </html>
