@@ -84,8 +84,14 @@
     margin-left: var(--spacing);
 }
 
-.dummy-message {
+.dummy-start {
     margin-top: auto;
+}
+
+.dummy-end {
+    font-size: calc(var(--font-size) / 2);
+    color: transparent;
+    user-select: none;
 }
 
 .message {
@@ -119,6 +125,18 @@
     border-bottom-left-radius: 0;
 }
 
+.message-sender {
+    font-size: 0.5rem;
+    opacity: 75%;
+    text-align: right;
+
+    transition: opacity 0.2s ease;
+}
+
+.message:hover .message-sender {
+    opacity: 100%;
+}
+
 .message.self {
     background-color: var(--bubble-self);
     color: var(--bubble-self-color);
@@ -135,4 +153,8 @@
 
     border-radius: var(--border-radius);
     border-bottom-right-radius: 0;
+}
+
+.message.self .message-sender {
+    text-align: left;
 }
