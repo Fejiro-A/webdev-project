@@ -1,0 +1,38 @@
+[data-theme="dark"],
+:root:not([data-theme="light"]) {
+    --primary: rgb(216, 27, 96);
+    --primary-hover: rgb(243, 63, 129);
+}
+
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+    --primary: rgb(216, 27, 96);
+    --primary-hover: rgb(243, 63, 129);
+}
+
+@media only screen and (prefers-color-scheme: light) {
+    :root:not([data-theme]) {
+        --primary: rgb(216, 27, 96);
+        --primary-hover: rgb(243, 63, 129);
+    }
+}
+
+.container {
+    padding-top: var(--spacing);
+    padding-bottom: var(--spacing);
+
+    margin-top: 10vh;
+
+    max-width: 600px;
+}
+
+.login-container {
+    margin-top: var(--nav-link-spacing-vertical);
+    margin-bottom: var(--spacing);
+    padding-top: var(--spacing);
+    padding-bottom: var(--spacing);
+}
+
+.login {
+    text-align: right;
+}
