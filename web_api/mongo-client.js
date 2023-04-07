@@ -10,14 +10,15 @@ async function generateClient() {
     let client = null;
     try {
         client = await mongoClient.connect(projectConstants.MONGODB_URL);
-    } catch (e) {
+    } // end try
+    catch (e) {
         console.log(e);
-    }
+    } // end catch
 
     console.log("Connected to mongo db");
 
     return client;
-}
+} // end client generation
 
 
 

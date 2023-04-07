@@ -22,12 +22,12 @@ async function beginServer() {
 
     app.get('/auth-test', passport.authenticate('jwt', { session: false }), function (req, res) {
         res.send(`Hello ${req.user.username}`);
-    });
+    }); // end authentication
 
     // Start listening for requests
     app.listen(port, () => {
         console.log(`Started server; Listening at port ${port}`);
-    });
-}
+    }); // end request listen
+} // end server initialization
 
 beginServer();

@@ -12,6 +12,7 @@ const bcrypt = require('bcrypt');
  * @param {MongoClient} client 
  * @returns express router
  */
+
 async function configureRoutes(client) {
     let User = await client.db().collection(constants.MONGO_USER_COLLECTION_NAME);
 
@@ -20,7 +21,7 @@ async function configureRoutes(client) {
         let token = jwt.sign({}, constants.JWT_SECRET,
             { expiresIn: constants.JWT_EXP, audience: constants.JWT_AUDIENCE, subject: req.user._id.toString(), issuer: constants.JWT_ISSUER });
         return res.json({ token: token });
-    });
+    }); // end login
 
     // User creation
     router.post('/register', async function (req, res) {
@@ -33,12 +34,12 @@ async function configureRoutes(client) {
             if (user[key] != undefined && user[key] != null) return;
 
             errors.push(`${key} is required`);
-        });
+        }); // end error response
 
         if (errors.length > 0) {
             res.status(400).send({ errors: errors.join(", ") });
             return;
-        }
+        } // end if
 
         try {
             let foundUser = await User.find({ username: user.username }).limit(1).next();
@@ -46,22 +47,23 @@ async function configureRoutes(client) {
                 // Respond with an error if a user with the supplied username already exists
                 res.status(409).send("username already exists");
                 return;
-            }
+            } // end if
 
             user.password = await bcrypt.hash(user.password, 10);
 
             // Insert user into database
             await User.insertOne(user);
             return res.sendStatus(201);
-        }
+            
+        } // end try
         catch (e) {
             console.log(e);
             res.sendStatus(500);
-        }
+        } // end catch
 
-    });
+    }); // end user creation
 
     return router;
-}
+} // end route configuration
 
 module.exports = configureRoutes;

@@ -22,12 +22,12 @@ async function configure(client) {
 
                 // Authenticate
                 return done(null, user);
-            })
+            }) // end then
             .catch((err) => {
                 // Report error if something went wrong
                 if (err) return done(err);
-            })
-    }));
-}
+            }) // end catch
+    })); // end passport use
+} // end local user configuration
 
 module.exports = configure;
