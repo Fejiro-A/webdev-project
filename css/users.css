@@ -1,0 +1,10 @@
+.container{
+    padding-top: var(--spacing);
+    padding-bottom: var(--spacing);
+}
+.users-container{
+    margin-top: var(--nav-link-spacing-vertical);
+    margin-bottom: var(--spacing);
+    padding-top: var(--spacing);
+    padding-bottom: var(--spacing);
+}
