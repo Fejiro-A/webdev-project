@@ -1,20 +1,26 @@
-var users = [{"ID":1, "Username":"sampleUser"},
-            {"ID":2, "Username":"sampleUser2"},
-            {"ID":3, "Username":"sampleUser3"}
+var users = [{id:1, username:"sampleUser"},
+            {id:2, username:"sampleUser2"},
+            {id:3, username:"sampleUser3"}
             ]
+
+$(document).ready(function() {
+    addUsers(users);
+});
             
 //Creates table of users from list
-for (i in users){
-    var user = document.createElement("tr");
-
-    var userId = document.createElement("th");
-    userId.innerText = users[i]["ID"];
-    user.appendChild(userId);
-
-    var username = document.createElement("td");
-    username.innerText = users[i]["Username"];
-    user.appendChild(username);
-
-    $("#user-table").appendChild(user);
+function addUsers(entries) {
+    for (i in entries){
+        var user = document.createElement("tr");
     
+        var userId = document.createElement("th");
+        userId.innerText = users[i].id;
+        user.appendChild(userId);
+    
+        var username = document.createElement("td");
+        username.innerText = users[i].username;
+        user.appendChild(username);
+    
+        $("#user-table").append(user);
+    }
 }
+
