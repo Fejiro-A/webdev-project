@@ -12,7 +12,6 @@ const bcrypt = require('bcrypt')
  * @returns express router
  * @prettier
  */
-
 async function configureRoutes(client) {
   let User = await client.db().collection(constants.MONGO_USER_COLLECTION_NAME)
 
@@ -73,9 +72,9 @@ async function configureRoutes(client) {
       console.log(e)
       res.sendStatus(500)
     } // end catch
-  }) // end user creation
+  }); // end user creation
 
-  return router
+  return router;
 } // end route configuration
 
 module.exports = configureRoutes
