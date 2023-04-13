@@ -1,0 +1,27 @@
+Oghenefejiro Abohweyere:
+
+- Major contributions to back-end functionality
+- Implementation of user authorization
+
+Jonah Baayen:
+
+- Message page design and functionality
+- Login page design and functionality
+
+Megan Brandreth:
+
+- Primary documentation
+- Code formatting
+- Implementation of industry standard practices
+
+Cameron Millar:
+
+- User page creation
+
+Omar Husain:
+
+
+
+Jordan Lam:
+
+
