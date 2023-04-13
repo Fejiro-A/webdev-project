@@ -21,7 +21,7 @@
 
 ### Our Goal?
 
-As a team we wanted to create a functional web application that would allow for the sending and receiving of messages from multiple connected users. Our application supports light and dark mode for the chat window, the creation and storage of users with unique usernames and passwords, and a running log of logged in and active users alongside statistics that mirror what may be found in a larger, more rubost application.
+As a team we wanted to create a functional web application that would allow for the sending and receiving of messages from multiple connected users. Our application supports light and dark mode for the chat window, the creation and storage of users with unique usernames and passwords, and a running log of logged in and active users alongside statistics that mirror what may be found in a larger, more robust application.
 
 ### What is the intended use of our application?
 
