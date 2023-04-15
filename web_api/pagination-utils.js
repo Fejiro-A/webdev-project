@@ -1,14 +1,16 @@
 function extractFilterAndPaginationParams(req) {
-    let pageNumber = req.body.pagination["pageNo"];
-    let pageSize = req.body.pagination["pageSize"];
-    let sort = req.body.pagination["sort"];
+    let pageNumber = 0;
+    let pageSize = 20;
+    let sort = {};
     let filter = req.body.filter;
     if (filter == undefined || filter == null) {
         filter = {};
     }
 
-    if (pageNumber == undefined || pageNumber == null) {
-        pageNumber = 0;
+    if (req.pagination != undefined && req.pagination == null) {
+        pageNumber = req.pagination.pageNo == undefined ? pageNumber : req.pagination.pageNo;
+        pageSize = req.pagination.pageSize == undefined ? pageSize : req.pagination.pageSize;
+        sort = req.pagination.sort == undefined ? sort : req.pagination.sort;
     }
 
     if (pageSize == undefined || pageSize == null || pageSize < 1) {

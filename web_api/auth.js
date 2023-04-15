@@ -15,18 +15,41 @@ const bcrypt = require('bcrypt')
 async function configureRoutes(client) {
   let User = await client.db().collection(constants.MONGO_USER_COLLECTION_NAME)
 
+  router.get(
+    '/logged-in',
+    passport.authenticate('jwt', { session: false }),
+    async function (req, res, next) {
+      try {
+        let user = await User.findOne({ _id: req.user._id });
+
+        user.password = undefined;
+
+
+        return res.json(user);
+      }
+      catch (e) {
+        return next(e);
+      }
+    }
+  )
+
   // Login
   router.post(
     '/login',
     passport.authenticate('local', { session: false }),
-    function (req, res) {
-      let token = jwt.sign({}, constants.JWT_SECRET, {
-        expiresIn: constants.JWT_EXP,
-        audience: constants.JWT_AUDIENCE,
-        subject: req.user._id.toString(),
-        issuer: constants.JWT_ISSUER,
-      })
-      return res.json({ token: token })
+    function (req, res, next) {
+      try {
+        let token = jwt.sign({}, constants.JWT_SECRET, {
+          expiresIn: constants.JWT_EXP,
+          audience: constants.JWT_AUDIENCE,
+          subject: req.user._id.toString(),
+          issuer: constants.JWT_ISSUER,
+        })
+        return res.json({ token: token })
+      }
+      catch (e) {
+        return next(e);
+      }
     }
   ) // end login
 

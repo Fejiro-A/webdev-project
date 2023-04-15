@@ -26,13 +26,12 @@ async function beginServer() {
     app.use('/auth', await authRoute(mongoClient))
     app.use('/users', passport.authenticate('jwt', { session: false }), await userRoute(mongoClient))
 
-    app.get(
-        '/auth-test',
-        passport.authenticate('jwt', { session: false }),
-        function (req, res) {
-            res.send(`Hello ${req.user.username}`)
-        }
-    ) // end authentication
+    app.use((error, req, res, next) => {
+        console.error(error.stack);
+        res.status(500).send("Something went wrong");
+    })
+
+    // end authentication
 
     // Start listening for requests
     app.listen(port, () => {
