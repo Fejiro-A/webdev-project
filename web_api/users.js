@@ -74,7 +74,7 @@ async function configureRoutes(client) {
         }
     });
 
-    // Get messages between logged-in user and the user associated with id :userId
+    // send message from logged-in user to the user associated with id :userId
     router.post("/:userId/messages", async (req, res, next) => {
 
         try {

@@ -88,8 +88,10 @@ async function configureRoutes(client) {
       user.password = await bcrypt.hash(user.password, 10)
 
       // Insert user into database
-      await User.insertOne(user)
-      return res.sendStatus(201)
+      let insertedId = (await User.insertOne(user)).insertedId
+      let newUser = await User.findOne({ _id: insertedId });
+      newUser.password = undefined;
+      return res.status(201).json(newUser);
     } catch (e) {
       // end try
       console.log(e)
