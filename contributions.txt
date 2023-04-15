@@ -1,6 +1,6 @@
 Oghenefejiro Abohweyere:
 
-- Major contributions to back-end functionality
+- Major contributions to overall back-end functionality
 - Implementation of user authorization
 
 Jonah Baayen:
@@ -11,7 +11,7 @@ Jonah Baayen:
 Megan Brandreth:
 
 - Primary documentation
-- Code formatting
+- Code formatting (using prettier (https://prettier.io))
 - Implementation of industry standard practices
 
 Cameron Millar:
