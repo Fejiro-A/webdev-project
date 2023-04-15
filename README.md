@@ -51,7 +51,7 @@ Below is a link to a demonstration video showing the features of our application
 
 ## Contributers
 
-Fejiro-A
-jonahbaayen (incl. nyuppo)
-illxso
-Cameron-Millar 
+- Fejiro-A
+- jonahbaayen (incl. nyuppo)
+- illxso
+- Cameron-Millar 
