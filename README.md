@@ -55,3 +55,5 @@ Below is a link to a demonstration video showing the features of our application
 - jonahbaayen (incl. nyuppo)
 - illxso
 - Cameron-Millar 
+- Omar-Husain
+- jordanhklam
