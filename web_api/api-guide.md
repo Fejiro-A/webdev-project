@@ -17,7 +17,7 @@ Registers new users.
 <ul>
 
 **Format:**
-```json
+```javascript
 {  
     "username": text,  
     "password": text,  
@@ -38,7 +38,7 @@ Registers new users.
 Responds with created user JSON  
 **Status Code:** 201  
 **Body Format:**
-```json
+```javascript
 {  
     "_id": text,
     "username": text,   
@@ -66,7 +66,7 @@ Login to get a token
 <ul>
 
 **Format:**
-```json
+```javascript
 {  
     "username": text,  
     "password": text
@@ -85,7 +85,7 @@ Login to get a token
 Responds with a JWT  
 **Status Code:** 200  
 **Body Format:**
-```json
+```javascript
 {  
     "token": text
 }
@@ -125,7 +125,7 @@ Authorization: Bearer ```<JWT>```
 Responds with user JSON  
 **Status Code:** 200  
 **Body Format:**
-```json
+```javascript
 {  
     "_id": text,
     "username": text,   
@@ -163,7 +163,7 @@ Authorization: Bearer ```<JWT>```
 <ul>
 
 **Format:**
-```json
+```javascript
 {  
     "pagination": {
         "pageNo": int (optional),
@@ -190,7 +190,7 @@ Authorization: Bearer ```<JWT>```
 Responds with a page of user objects  
 **Status Code:** 200  
 **Body Format:**
-```json
+```javascript
 { 
     "results": list of users,
     "pagination": { 
@@ -236,7 +236,7 @@ Authorization: Bearer ```<JWT>```
 Responds with user JSON  
 **Status Code:** 200  
 **Body Format:**
-```json
+```javascript
 {  
     "_id": text,
     "username": text,   
@@ -274,7 +274,7 @@ Authorization: Bearer ```<JWT>```
 <ul>
 
 **Format:**
-```json
+```javascript
 {  
     "content": text
 }
@@ -292,7 +292,7 @@ Authorization: Bearer ```<JWT>```
 Responds with a page of message objects  
 **Status Code:** 200  
 **Body Format:**
-```json
+```javascript
 { 
     "_id": text,
     "receiverId": text,
@@ -332,7 +332,7 @@ Authorization: Bearer ```<JWT>```
 <ul>
 
 **Format:**
-```json
+```javascript
 {  
     "pagination": {
         "pageNo": int (optional),
@@ -359,7 +359,7 @@ Authorization: Bearer ```<JWT>```
 Responds with a page of message objects  
 **Status Code:** 200  
 **Body Format:**
-```json
+```javascript
 { 
     "results": list of message objects,
     "pagination": { 
@@ -400,7 +400,7 @@ Authorization: Bearer ```<JWT>```
 <ul>
 
 **Format:**
-```json
+```javascript
 {  
     "group": text (default: "hour", possible values: "year", "month", "week", "day", "hour", "minute"),
     "earliest": date,
@@ -420,7 +420,7 @@ Authorization: Bearer ```<JWT>```
 Responds with a list of stats divided by the specified group
 **Status Code:** 200  
 **Body Format:**
-```json
+```javascript
 [
     {
         "_id": {
@@ -463,7 +463,7 @@ To connect with the websocket, use the **/chat** path
 
 After a successful connection to the websocket,
 you have to send a message in the following format to authenticate the user:
-```json
+```javascript
 {
     "label": "auth",
     "token": <JWT>
@@ -480,7 +480,7 @@ Sending this message once per connection is sufficient
 
 When a user adds a new message using the (POST /users/***:userId***/messages) API endpoint, the server will automatically attempt to send the message to the receipient user.  
 The message will be in the following format:
-```json
+```javascript
 {
     "label": "chat",
     "message": {
@@ -488,7 +488,7 @@ The message will be in the following format:
         "receiverId": text,
         "content": text,
         "senderId": text,
-        "creationDate": int (date as milliseconds since epoch,
+        "creationDate": int (date as milliseconds since epoch),
         "read": bool
     }
 }
