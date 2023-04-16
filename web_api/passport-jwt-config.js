@@ -17,7 +17,9 @@ opts.audience = constants.JWT_AUDIENCE
  */
 
 async function configure(client) {
-  let User = await client.db().collection(constants.MONGO_USER_COLLECTION_NAME)
+  let User = await client.db().collection(constants.MONGO_USER_COLLECTION_NAME);
+  let Request = await client.db().collection(constants.MONGO_REQUEST_COLLECTION_NAME);
+
   passport.use(
     new JwtStrategy(opts, function (jwt_payload, done) {
       // Look for a user with the id in the jwt payload
@@ -27,6 +29,8 @@ async function configure(client) {
         .then(user => {
           // Block request if user could not be found
           if (!user) return done(null, false)
+
+          Request.insertOne({ userId: user._id, date: new Date() });
 
           // Authorize
           return done(null, user)

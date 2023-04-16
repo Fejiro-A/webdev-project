@@ -12,22 +12,51 @@ const bcrypt = require('bcrypt')
  * @returns express router
  * @prettier
  */
-
 async function configureRoutes(client) {
   let User = await client.db().collection(constants.MONGO_USER_COLLECTION_NAME)
+
+  router.get(
+    '/logged-in',
+    passport.authenticate('jwt', { session: false }),
+    async function (req, res, next) {
+      try {
+        let user = await User.findOne({ _id: req.user._id });
+        
+        if (!user) {
+          return res.status(404).json({"error": "User not found"})
+        }
+
+        user.password = undefined;
+
+
+        return res.json(user);
+      }
+      catch (e) {
+        return next(e);
+      }
+    }
+  )
 
   // Login
   router.post(
     '/login',
     passport.authenticate('local', { session: false }),
-    function (req, res) {
-      let token = jwt.sign({}, constants.JWT_SECRET, {
-        expiresIn: constants.JWT_EXP,
-        audience: constants.JWT_AUDIENCE,
-        subject: req.user._id.toString(),
-        issuer: constants.JWT_ISSUER,
-      })
-      return res.json({ token: token })
+    function (req, res, next) {
+      try {
+        if (!req.user) {
+          return res.status(404).json({"error": "User not found"})
+        }
+        let token = jwt.sign({}, constants.JWT_SECRET, {
+          expiresIn: constants.JWT_EXP,
+          audience: constants.JWT_AUDIENCE,
+          subject: req.user._id.toString(),
+          issuer: constants.JWT_ISSUER,
+        })
+        return res.json({ token: token })
+      }
+      catch (e) {
+        return next(e);
+      }
     }
   ) // end login
 
@@ -66,16 +95,24 @@ async function configureRoutes(client) {
       user.password = await bcrypt.hash(user.password, 10)
 
       // Insert user into database
-      await User.insertOne(user)
-      return res.sendStatus(201)
+      let insertedId = (await User.insertOne(user)).insertedId
+      if (!insertedId) {
+        return res.status(404).json({"error": "User not found"})
+      }
+      let newUser = await User.findOne({ _id: insertedId });
+      if (!newUser) {
+        return res.status(404).json({"error": "User not found"})
+      }
+      newUser.password = undefined;
+      return res.status(201).json(newUser);
     } catch (e) {
       // end try
       console.log(e)
       res.sendStatus(500)
     } // end catch
-  }) // end user creation
+  }); // end user creation
 
-  return router
+  return router;
 } // end route configuration
 
 module.exports = configureRoutes
