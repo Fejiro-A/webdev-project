@@ -28,6 +28,8 @@ async function configureRoutes(client) {
         let user = { username: req.body.username, password: req.body.password, firstName: req.body.firstName, lastName: req.body.lastName };
         let errors = [];
 
+        console.log(user);
+
         // Respond with an error if any of the user properties are missing
         Object.keys(user).forEach(key => {
             if (user[key] != undefined && user[key] != null) return;
@@ -59,6 +61,17 @@ async function configureRoutes(client) {
             res.sendStatus(500);
         }
 
+    });
+
+    //User retrieval
+    router.get('/all-users', async function (req, res) {
+        try {
+            const users = await User.find().toArray();
+            res.json(users);
+        } catch (e) {
+            console.log(e);
+            res.sendStatus(500);
+        }
     });
 
     return router;

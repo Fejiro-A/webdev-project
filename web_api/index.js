@@ -6,6 +6,10 @@ const bodyParser = require('body-parser');
 const passport = require('passport');
 const authRoute = require('./auth');
 
+// Add CORS middleware
+const cors = require('cors');
+app.use(cors());
+
 async function beginServer() {
     const port = 3000;
     let mongoClient = await generateMongoClient();

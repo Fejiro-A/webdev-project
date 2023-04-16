@@ -9,12 +9,13 @@ console.log(`Mongo client: ${projectConstants.MONGODB_URL}`);
 async function generateClient() {
     let client = null;
     try {
-        client = await mongoClient.connect(projectConstants.MONGODB_URL);
+        client = await mongoClient.connect(projectConstants.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
     } catch (e) {
-        console.log(e);
+        console.error("Error connecting to MongoDB:", e);
+        process.exit(1); // Exit the process if the connection fails
     }
 
-    console.log("Connected to mongo db");
+    console.log("Connected to MongoDB");
 
     return client;
 }
