@@ -382,7 +382,7 @@ Responds with a page of message objects
 </ul>
 
 ## GET /users/stats
-Get activity stats of logged in user  
+Get activity stats of logged-in user  
 <ul>
 
 ### Header
@@ -417,7 +417,7 @@ Authorization: Bearer ```<JWT>```
 <li>
 
 #### On Success
-Responds with a list of stats divided by the specified group
+Responds with a list of request stats divided by the specified group  
 **Status Code:** 200  
 **Body Format:**
 ```javascript
