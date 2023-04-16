@@ -8,3 +8,6 @@
     padding-top: var(--spacing);
     padding-bottom: var(--spacing);
 }
+.page-link{
+    color:rgb(216, 27, 96);
+}
