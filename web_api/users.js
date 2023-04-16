@@ -265,6 +265,7 @@ async function configureRoutes(client, webSocketConnections) {
             if (!user) {
                 return res.status(404).json({ "error": "User not found" })
             }
+
             user.password = undefined;
 
             return res.json(user);
