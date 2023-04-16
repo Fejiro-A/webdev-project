@@ -197,7 +197,13 @@ async function configureRoutes(client, webSocketConnections) {
             }
 
             let users = await User.find(filter).project({ password: 0 }).sort(sort).limit(pageSize).skip(pageNumber * pageSize).toArray();
+            if (!users) {
+                return res.status(404).json({ "error": "Users not found" })
+            }
             let total = await User.countDocuments(filter);
+            if (!total) {
+                return res.status(404).json({ "error": "Finding count of users failed" })
+            }
 
             let maxPage = Math.floor((total / pageSize) - 1);
 
@@ -257,6 +263,9 @@ async function configureRoutes(client, webSocketConnections) {
         try {
             let user = await User.findOne({ _id: new ObjectId(req.params.userId) });
             user.password = undefined;
+            if (!user) {
+                return res.status(404).json({ "error": "User not found" })
+            }
 
             return res.json(user);
         }
@@ -269,6 +278,12 @@ async function configureRoutes(client, webSocketConnections) {
     router.post("/:userId/messages", async (req, res, next) => {
 
         try {
+            if (!req.body.content) {
+                return res.status(400).json({ "error": "Request body must contain content" })
+            }
+            if (!req.user) {
+                return res.status(404).json({ "error": "Could not find inserted object" })
+            }
             let receiverId = new ObjectId(req.params.userId);
             let content = req.body.content;
             let senderId = new ObjectId(req.user._id);
@@ -283,7 +298,7 @@ async function configureRoutes(client, webSocketConnections) {
 
 
             if (newlyInsertedObject == null) {
-                return res.status(500).send("Could not find inserted object");
+                return res.status(400).json({ "error": "Could not find inserted object" });
             }
 
             sendChatMessage(newlyInsertedObject, webSocketConnections);
@@ -301,15 +316,25 @@ async function configureRoutes(client, webSocketConnections) {
         try {
             let [filter, pageNumber, pageSize, sort] = paginationUtils.extractFilterAndPaginationParams(req);
 
+            if (!req.user) {
+                return res.status(404).json({ "error": "Could not find inserted object" })
+            }
+
             let otherUserId = new ObjectId(req.params.userId);
             let loggedInUserId = new ObjectId(req.user._id);
             filter = { ...filter, $or: [{ senderId: otherUserId, receiverId: loggedInUserId }, { senderId: loggedInUserId, receiverId: otherUserId }] };
-            console.log(filter);
             let messages = await Message.find(filter)
                 .sort(sort).limit(pageSize).skip(pageNumber * pageSize).toArray();
             // messages = messages.map(addStringDateToMessage);
+            if (!messages) {
+                return res.status(404).json({ "error": "Messages not found" })
+            }
+            messages = messages.map(addStringDateToMessage);
 
             let total = await User.countDocuments(filter);
+            if (!total) {
+                return res.status(404).json({ "error": "Finding count of messages failed" })
+            }
 
             let maxPage = Math.floor((total / pageSize) - 1);
 

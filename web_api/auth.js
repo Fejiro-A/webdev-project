@@ -21,6 +21,10 @@ async function configureRoutes(client) {
     async function (req, res, next) {
       try {
         let user = await User.findOne({ _id: req.user._id });
+        
+        if (!user) {
+          return res.status(404).json({"error": "User not found"})
+        }
 
         user.password = undefined;
 
@@ -39,6 +43,9 @@ async function configureRoutes(client) {
     passport.authenticate('local', { session: false }),
     function (req, res, next) {
       try {
+        if (!req.user) {
+          return res.status(404).json({"error": "User not found"})
+        }
         let token = jwt.sign({}, constants.JWT_SECRET, {
           expiresIn: constants.JWT_EXP,
           audience: constants.JWT_AUDIENCE,
@@ -89,7 +96,13 @@ async function configureRoutes(client) {
 
       // Insert user into database
       let insertedId = (await User.insertOne(user)).insertedId
+      if (!insertedId) {
+        return res.status(404).json({"error": "User not found"})
+      }
       let newUser = await User.findOne({ _id: insertedId });
+      if (!newUser) {
+        return res.status(404).json({"error": "User not found"})
+      }
       newUser.password = undefined;
       return res.status(201).json(newUser);
     } catch (e) {
