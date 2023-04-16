@@ -1,11 +1,13 @@
 const express = require('express')
 const app = express()
+const expressWs = require('express-ws')(app)
 const passportConfig = require('./passport-config')
 const generateMongoClient = require('./mongo-client')
 const bodyParser = require('body-parser')
 const passport = require('passport')
 const authRoute = require('./auth')
 const userRoute = require('./users')
+const { setupChatWebsockets } = require('./chat')
 
 /**
  * @prettier
@@ -14,6 +16,7 @@ const userRoute = require('./users')
 async function beginServer() {
     const port = 3000
     let mongoClient = await generateMongoClient()
+
     // Middleware to put contents of raw request body into req.body
     app.use(bodyParser.json())
 
@@ -22,9 +25,11 @@ async function beginServer() {
 
     app.use(passport.initialize())
 
+    let webSocketConnections = setupChatWebsockets(expressWs);
+
     // Configure routes
     app.use('/auth', await authRoute(mongoClient))
-    app.use('/users', passport.authenticate('jwt', { session: false }), await userRoute(mongoClient))
+    app.use('/users', passport.authenticate('jwt', { session: false }), await userRoute(mongoClient, webSocketConnections))
 
     app.use((error, req, res, next) => {
         console.error(error.stack);
@@ -32,6 +37,8 @@ async function beginServer() {
     })
 
     // end authentication
+
+
 
     // Start listening for requests
     app.listen(port, () => {
