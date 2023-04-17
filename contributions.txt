@@ -6,7 +6,8 @@ Oghenefejiro Abohweyere:
 Jonah Baayen:
 
 - Message page design and functionality
-- Login page design and functionality
+- Login page design
+- Sign up page design
 
 Megan Brandreth:
 
