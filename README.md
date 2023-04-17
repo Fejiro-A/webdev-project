@@ -7,7 +7,7 @@
 - User login
 - Active user view/log
 - Activity statistics
-- Message sending and recieving
+- Message sending and receiving
 
 ### What Are We Using?
 - MongoDB
@@ -19,24 +19,22 @@
 - Node.js
 - Views and/or client-side framework
 
-### Our Goal?
+### What is our goal?
 
-As a team we wanted to create a functional web application that would allow for the sending and receiving of messages from multiple connected users. Our application supports light and dark mode for the chat window, the creation and storage of users with unique usernames and passwords, and a running log of logged in and active users alongside statistics that mirror what may be found in a larger, more robust application.
+We intended to design a web application that would allow numerous connected users to send and receive messages. Our application offers both light and dark chat window modes, the creation and storing of users with unique usernames and passwords, and a running log of signed in and active users, as well as statistics similar to those seen in a bigger, more robust application.
 
 ### What is the intended use of our application?
 
-For those who download it, this application will serve as a direct route of communication for all connected individuals (who have also properly installed the program) who are running the application through the same port. Created for a final project for our Web Development class, it is simple, but functional and designed with the user in mind. Ease of use was a goal part of the creation process. 
+The app is designed to serve as a direct communication channel for any connected users who run the application on the same port. It is basic yet functional, and it was created with the user's convenience in mind.
 
 ## Special Instructions for Execution
 
-
 // baseplate incase there is something needed, will be deleted otherwise//
-It is necessary that you have the following installed on your system to properly run this application:
+
+It is important that users have the neccessary requirements installed properly on their system to run our app and all of it's features. Here is a list of requirements that our app needs:
 
 - 
 - 
-
-We cannot guarantee the proper execution of the application without all of the above being installed properly on your system. In that regard, we can also not ensure proper visual functionality without the proper libraries installed especially with the light/dark mode feature.
 
 
 ## How to Execute the Application

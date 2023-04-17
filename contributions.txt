@@ -16,12 +16,15 @@ Megan Brandreth:
 
 Cameron Millar:
 
-- User page creation
+- User page design and functionality
 
 Omar Husain:
 
-
+- Login page functionality
+- Sign up page functionality
+- User page functionality
 
 Jordan Lam:
 
-
+- Additional backend error checking
+- Documentation fixes and improvement
