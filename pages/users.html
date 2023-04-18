@@ -28,6 +28,40 @@
                 <tbody id="user-table"></tbody>
             </table>
         </article>
+
+        <dialog id="user-info-modal">
+            <article id="user-info-modal-visible">
+                <header>
+                    <a href="javascript:;" aria-label="Close" class="close" id="user-info-modal-close"></a>
+                    <div>
+                        <i class="fa-solid fa-user"></i>
+                        <span id="user-info-username">Username</span>
+                    </div>
+                </header>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>ID</strong>
+                            </td>
+                            <td id="user-info-id"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>First Name</strong>
+                            </td>
+                            <td id="user-info-firstname"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>Last Name</strong>
+                            </td>
+                            <td id="user-info-lastname"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </article>
+        </dialog>
     </main>
     </body>
 </html>
