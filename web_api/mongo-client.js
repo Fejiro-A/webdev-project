@@ -1,25 +1,25 @@
 /**
  * This file defines a uniform way to get a MongoClient instance connected to a mongodb process
+ * @prettier
  */
-const mongoClient = require('mongodb').MongoClient;
-const projectConstants = require('./constants');
 
-console.log(`Mongo client: ${projectConstants.MONGODB_URL}`);
+const mongoClient = require('mongodb').MongoClient
+const projectConstants = require('./constants')
+
+console.log(`Mongo client: ${projectConstants.MONGODB_URL}`)
 
 async function generateClient() {
-    let client = null;
-    try {
-        client = await mongoClient.connect(projectConstants.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true });
-    } catch (e) {
-        console.error("Error connecting to MongoDB:", e);
-        process.exit(1); // Exit the process if the connection fails
-    }
+  let client = null
+  try {
+    client = await mongoClient.connect(projectConstants.MONGODB_URL)
+  } catch (e) {
+    // end try
+    console.log(e)
+  } // end catch
 
-    console.log("Connected to MongoDB");
+  console.log('Connected to mongo db')
 
-    return client;
-}
+  return client
+} // end client generation
 
-
-
-module.exports = generateClient;
+module.exports = generateClient

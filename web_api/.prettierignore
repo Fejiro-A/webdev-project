@@ -1,0 +1,11 @@
+# ignore artifacts:
+.env
+.editorconfig
+.prettierignore
+.prettierc
+package-lock.json
+package.json
+.gitignore
+contributions.txt
+group_members.html
+README.md
