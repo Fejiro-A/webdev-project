@@ -201,9 +201,9 @@ async function configureRoutes(client, webSocketConnections) {
                 return res.status(404).json({ "error": "Users not found" })
             }
             let total = await User.countDocuments(filter);
-            if (!total) {
-                return res.status(404).json({ "error": "Finding count of users failed" })
-            }
+            // if (!total) {
+            //     return res.status(404).json({ "error": "Finding count of users failed" })
+            // }
 
             let maxPage = Math.floor((total / pageSize) - 1);
 
@@ -333,9 +333,10 @@ async function configureRoutes(client, webSocketConnections) {
             messages = messages.map(addStringDateToMessage);
 
             let total = await User.countDocuments(filter);
-            if (!total) {
-                return res.status(404).json({ "error": "Finding count of messages failed" })
-            }
+
+            // if (!total) {
+            //     return res.status(404).json({ "error": "Finding count of messages failed" })
+            // }
 
             let maxPage = Math.floor((total / pageSize) - 1);
 
