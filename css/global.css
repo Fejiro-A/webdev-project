@@ -28,3 +28,7 @@ dialog article header {
 dialog article table {
     margin-bottom: 0;
 }
+
+#logout-button {
+    margin-right: var(--nav-link-spacing-vertical);
+}
