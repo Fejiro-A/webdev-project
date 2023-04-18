@@ -13,6 +13,10 @@ const { setupChatWebsockets } = require('./chat')
  * @prettier
  */
 
+// Add CORS middleware
+const cors = require('cors');
+app.use(cors());
+
 async function beginServer() {
     const port = 3000
     let mongoClient = await generateMongoClient()
