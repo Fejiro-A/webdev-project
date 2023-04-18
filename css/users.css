@@ -1,13 +1,65 @@
+[data-theme="dark"],
+:root:not([data-theme="light"]) {
+    --bubble: rgb(67, 77, 83);
+    --bubble-hover: rgb(94, 113, 126);
+
+    --bubble-self: rgb(216, 27, 96);
+    --bubble-self-hover: rgb(243, 63, 129);
+    --bubble-self-color: var(--h3-color);
+
+    --primary: rgb(216, 27, 96);
+    --primary-hover: rgb(243, 63, 129);
+}
+
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+    --bubble: rgb(203, 216, 224);
+    --bubble-hover: rgb(214, 225, 231);
+
+    --bubble-self: rgb(216, 27, 96);
+    --bubble-self-hover: rgb(243, 63, 129);
+    --bubble-self-color: rgb(255, 255, 255);
+
+    --primary: rgb(216, 27, 96);
+    --primary-hover: rgb(243, 63, 129);
+}
+
 .container{
     padding-top: var(--spacing);
     padding-bottom: var(--spacing);
 }
+
 .users-container{
     margin-top: var(--nav-link-spacing-vertical);
     margin-bottom: var(--spacing);
-    padding-top: var(--spacing);
+    padding-top: calc(var(--spacing) * 2);
     padding-bottom: var(--spacing);
 }
+
 .page-link{
     color:rgb(216, 27, 96);
+}
+
+.user-entry {
+    cursor: pointer;
+}
+
+.user-entry .active {
+    background-color: red;
+}
+
+.send {
+    width: 1em;
+    margin-left: auto;
+    margin-right: var(--spacing);
+    margin-top: calc(var(--spacing) / 2);
+
+    border-bottom: none !important;
+    cursor: pointer !important;
+
+    transition: color 0.1s ease;
+}
+
+.send:hover {
+    color: var(--primary-hover);
 }

@@ -9,29 +9,23 @@
             <link rel="stylesheet" href="../css/users.css">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             <script type="text/javascript" src="../scripts/users.js"></script>
+            <script src="https://kit.fontawesome.com/992e9c866a.js" crossorigin="anonymous"></script>
     </head>
     <body>
     <main class = "container">
         <nav>
-            <ul><li><strong>App Name | Users</strong></li>
-                
-            </ul>
-            <ul>
-                <li><a href="messages.html" class="page-link"><strong>Messages</strong></a></li>
+            <ul><li><strong>Users</strong></li></ul>
+            <ul id="user-nav">
                 <li><a href="signup.html" class="page-link"><strong>Sign Up</strong></a></li>
+                <li>/</li>
                 <li><a href="login.html" class="page-link"><strong>Log in</strong></a></li>
             </ul>
             
         </nav>
         
-        <article class = "users-container">
-            <table id="user-table">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Name</th>
-                    </tr>
-                </thead>
+        <article class="users-container">
+            <table role="grid">
+                <tbody id="user-table"></tbody>
             </table>
         </article>
     </main>
