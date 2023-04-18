@@ -22,7 +22,7 @@ $(document).ready(function() {
                             localStorage.setItem("token", response.token);
 
                             // Redirect to the main chat page
-                            window.location.href = "../pages/messages.html";
+                            window.location.href = "../pages/users.html";
                         },
                         error: function(jqXHR, textStatus, errorThrown) {
                             alert("Failed to login. Please try again.");
