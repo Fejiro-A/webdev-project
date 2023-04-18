@@ -8,60 +8,84 @@
         <link rel="stylesheet" href="/css/global.css">
         <link rel="stylesheet" href="/css/messages.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script type="text/javascript" src="/scripts/messages.js"></script>
+        <script type="text/javascript" src="../scripts/messages.js"></script>
+        <script type="text/javascript" src="../scripts/theme-toggle.js"></script>
+        <script src="https://kit.fontawesome.com/992e9c866a.js" crossorigin="anonymous"></script>
     </head>
     <body>
+        <div id="theme-toggle">
+            <i id="theme-icon" class="fa-solid fa-moon"></i>
+        </div>
+
         <main class="container">
             <nav>
                 <ul>
-                    <li><strong>App Name | Messages</strong></li>
-                </ul>
-                <ul>
-                    <li><a href="signup.html" class="page-link"><strong>Sign Up</strong></a></li>
+                    <li><strong id="receiver">Chat</strong></li>
+                    <li>/</li>
                     <li><a href="users.html" class="page-link"><strong>Users</strong></a></li>
-                    <li><a href="login.html" class="page-link"><strong>Log in</strong></a></li>
                 </ul>
-                <ul>
-                    <li>
-                        <a class="secondary username" id="username">Logged in as USERNAME</a>
-                        <a href="javascript:;" class="secondary" role="button">Logout</a>
-                    </li>
+                <ul id="user-nav">
+                    <li><a href="signup.html" class="page-link"><strong>Sign Up</strong></a></li>
+                    <li>/</li>
+                    <li><a href="login.html" class="page-link"><strong>Log in</strong></a></li>
                 </ul>
             </nav>
 
-            <article class="chat-container">
-                <div id="chat-box">
-                    <div class="dummy-start"></div>
-                    <div class="message">
-                        <div class="message-text">Test Message 1</div>
-                        <div class="message-sender">Username</div>
-                    </div>
-                    <div class="message self">
-                        <div class="message-text">Test Message 2</div>
-                        <div class="message-sender">Username</div>
-                    </div>
-                    <div class="message self">
-                        <div class="message-text">This is a longer message. Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</div>
-                        <div class="message-sender">Username</div>
-                    </div>
-                    <div class="message">
-                        <div class="message-text">Test Message 3</div>
-                        <div class="message-sender">Username</div>
-                    </div>
-                    <div class="message">
-                        <div class="message-text">Test Message 4</div>
-                        <div class="message-sender">Username</div>
-                    </div>
+            <div class="chat-full">
+                
 
-                    <div class="dummy-end">End of messages.</div>
+                <article class="chat-container">
+                    <div id="chat-box">
+                        <div class="dummy-start"></div>
+                        <div class="dummy-end">End of messages.</div>
+                    </div>
+                </article>
+    
+                <div class="input-container">
+                    <input id="message-input" type="text" placeholder="Type your message...">
+                    <button id="message-send">
+                        <span>Send</span>
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
                 </div>
-            </article>
-
-            <div class="input-container">
-                <input id="message-input" type="text" placeholder="Type your message...">
-                <button id="message-send">Send</button>
             </div>
+            
+            <dialog id="user-info-modal">
+                <article id="user-info-modal-visible">
+                    <header>
+                        <a href="javascript:;" aria-label="Close" class="close" id="user-info-modal-close"></a>
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                            <span id="user-info-username">Username</span>
+                        </div>
+                    </header>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>ID</strong>
+                                </td>
+                                <td id="user-info-id"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>First Name</strong>
+                                </td>
+                                <td id="user-info-firstname"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Last Name</strong>
+                                </td>
+                                <td id="user-info-lastname"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>Your daily stats:</p>
+                    <div class="grid" id="user-stats-grid"></div>
+                </article>
+            </dialog>
         </main>
-        
     </body>
 </html>

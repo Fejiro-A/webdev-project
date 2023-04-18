@@ -1,3 +1,83 @@
 .username {
     margin-right: var(--spacing);
 }
+
+.fa-user {
+    margin: var(--nav-link-spacing-vertical);
+}
+
+#user-stats {
+    color: var(--primary);
+    transition: color 0.1s ease;
+    cursor: pointer;
+    margin-right: var(--nav-link-spacing-vertical);
+}
+
+#user-stats:hover {
+    color: var(--primary-hover);
+}
+
+dialog article {
+    width: 50vw;
+}
+
+dialog article header {
+    margin-bottom: var(--spacing);
+}
+
+dialog article table {
+    margin-bottom: var(--spacing);
+}
+
+#logout-button {
+    margin-right: var(--nav-link-spacing-vertical);
+}
+
+.activity-indicator {
+    margin-top: auto;
+    background-color: var(--primary);
+
+    transition: background-color 0.1s ease;
+}
+
+.activity-indicator:hover {
+    background-color: var(--primary-hover);
+}
+
+.activity-indicator-hour {
+    position: absolute;
+    top: 100%;
+    text-align: center;
+    left: 10%;
+    white-space: pre;
+}
+
+#theme-toggle {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: 2em;
+    height: 2em;
+    margin: var(--nav-link-spacing-vertical);
+    border-radius: 1em;
+
+    text-align: center;
+    background-color: var(--primary);
+
+    cursor: pointer;
+
+    transition: background-color 0.1s ease, border-radius 0.1s ease;
+}
+
+#theme-toggle i {
+    color: var(--card-background-color);
+    display: inline-block;
+    position: relative;
+    top: calc(50% - 0.8em);
+}
+
+#theme-toggle:hover {
+    background-color: var(--primary-hover);
+    border-radius: 0.5em;
+}

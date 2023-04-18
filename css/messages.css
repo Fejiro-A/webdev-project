@@ -80,8 +80,12 @@
 }
 
 #message-send {
-    width: fit-content;
+    width: 12%;
     margin-left: var(--spacing);
+}
+
+#message-send i {
+    margin-left: calc(var(--spacing) / 4);
 }
 
 .dummy-start {
