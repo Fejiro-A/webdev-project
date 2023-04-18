@@ -1,0 +1,31 @@
+Oghenefejiro Abohweyere:
+
+- Major contributions to overall back-end functionality
+- Implementation of user authorization
+
+Jonah Baayen:
+
+- Message page design and functionality
+- Login page design
+- Sign up page design
+
+Megan Brandreth:
+
+- Primary documentation
+- Code formatting (using prettier (https://prettier.io))
+- Implementation of industry standard practices
+
+Cameron Millar:
+
+- User page design and functionality
+
+Omar Husain:
+
+- Login page functionality
+- Sign up page functionality
+- User page functionality
+
+Jordan Lam:
+
+- Additional backend error checking
+- Documentation fixes and improvement
