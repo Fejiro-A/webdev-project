@@ -6,6 +6,7 @@ Oghenefejiro Abohweyere:
 Jonah Baayen:
 
 - Message page design and functionality
+- User page design and functionality
 - Login page design
 - Sign up page design
 
@@ -18,6 +19,8 @@ Megan Brandreth:
 Cameron Millar:
 
 - User page design and functionality
+- Message page functionality
+- General design and polish
 
 Omar Husain:
 
