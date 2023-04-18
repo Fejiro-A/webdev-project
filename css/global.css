@@ -26,9 +26,28 @@ dialog article header {
 }
 
 dialog article table {
-    margin-bottom: 0;
+    margin-bottom: var(--spacing);
 }
 
 #logout-button {
     margin-right: var(--nav-link-spacing-vertical);
+}
+
+.activity-indicator {
+    margin-top: auto;
+    background-color: var(--primary);
+
+    transition: background-color 0.1s ease;
+}
+
+.activity-indicator:hover {
+    background-color: var(--primary-hover);
+}
+
+.activity-indicator-hour {
+    position: absolute;
+    top: 100%;
+    text-align: center;
+    left: 10%;
+    white-space: pre;
 }

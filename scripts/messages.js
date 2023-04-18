@@ -192,7 +192,38 @@ $(document).ready(function() {
                         request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
                     },
                     success: function(res) {
-                        console.log(res);
+                        var today_entries = new Array();
+                        const today = new Date();
+                        res.forEach(function(entry) {
+                            if (entry._id.year == today.getFullYear() && entry._id.month == today.getMonth() + 1 && entry._id.day == today.getDate()) {
+                                today_entries.push(entry);
+                            }
+                        });
+
+                        var activitySum = 0;
+                        today_entries.forEach(function(entry) {
+                            activitySum += entry.count;
+                        });
+
+                        today_entries.forEach(function(entry) {
+                            var height = 10 * (entry.count / activitySum);
+                            var activityCount = document.createElement("div");
+                            activityCount.classList.add("activity-indicator");
+                            activityCount.style.height = height + "rem";
+                            activityCount.setAttribute("data-tooltip", entry.count + " requests");
+
+                            var hour = document.createElement("div");
+                            var start = " ";
+                            if (parseInt(entry._id.hour) < 10) {
+                                hour.innerText = start + entry._id.hour + ":00";
+                            } else {
+                                hour.innerText = entry._id.hour + ":00";
+                            }
+                            hour.classList.add("activity-indicator-hour");
+                            activityCount.appendChild(hour);
+
+                            $("#user-stats-grid").append(activityCount);
+                        });
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.log(errorThrown);
