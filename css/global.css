@@ -51,3 +51,33 @@ dialog article table {
     left: 10%;
     white-space: pre;
 }
+
+#theme-toggle {
+    position: fixed;
+    top: 0;
+    right: 0;
+
+    width: 2em;
+    height: 2em;
+    margin: var(--nav-link-spacing-vertical);
+    border-radius: 1em;
+
+    text-align: center;
+    background-color: var(--primary);
+
+    cursor: pointer;
+
+    transition: background-color 0.1s ease, border-radius 0.1s ease;
+}
+
+#theme-toggle i {
+    color: var(--card-background-color);
+    display: inline-block;
+    position: relative;
+    top: calc(50% - 0.8em);
+}
+
+#theme-toggle:hover {
+    background-color: var(--primary-hover);
+    border-radius: 0.5em;
+}
