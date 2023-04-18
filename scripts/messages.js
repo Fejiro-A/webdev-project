@@ -162,6 +162,58 @@ $(document).ready(function() {
         },
         success: function(res) {
             setUser(res.username);
+
+            $("#user-nav").empty();
+
+            var username = document.createElement("li");
+            username.id = "user-stats";
+            var icon = document.createElement("i");
+            icon.classList.add("fa-solid");
+            icon.classList.add("fa-user")
+            icon.classList.add("profile-icon");
+            username.appendChild(icon);
+            var usernameLink = document.createElement("a");
+            usernameLink.innerText = res.username;
+            username.appendChild(usernameLink);
+
+            // Open modal when clicking username
+            username.addEventListener("click", function() {
+                $("#user-info-modal").attr("open", true);
+                $("#user-info-username").text(res.username);
+                $("#user-info-id").text(res._id);
+                $("#user-info-firstname").text(res.firstName);
+                $("#user-info-lastname").text(res.lastName);
+
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:3000/users/stats",
+                    contentType: "application/json",
+                    beforeSend: function(request) {
+                        request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
+                    },
+                    success: function(res) {
+                        console.log(res);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                        alert("Error fetching user stats.");
+                    }
+                });
+            });
+
+            var logout = document.createElement("a");
+            logout.href = "javascript:;";
+            logout.classList.add("secondary");
+            logout.id = "logout-button";
+            logout.role = "button";
+            logout.innerText = "Logout";
+            logout.addEventListener("click", function() {
+                localStorage.removeItem("token");
+                window.location.href = "../pages/login.html";
+            });
+
+            $("#user-nav").append(username);
+            $("#user-nav").append(logout);
         },
         error: function(hqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -186,6 +238,21 @@ $(document).ready(function() {
             alert("Could not retrieve messages.");
         }
     });
+
+    // Handle closing modal
+    $("#user-info-modal-close").click(function() {
+        $("#user-info-modal").attr("open", false);
+    });
+});
+
+// Handle closing modal when clicking off it
+$(document).mouseup(function(e) {
+    var modal = $("#user-info-modal");
+    var visibleModal = $("#user-info-modal-visible");
+
+    if (!visibleModal.is(e.target) && visibleModal.has(e.target).length === 0) {
+        modal.attr("open", false);
+    }
 });
 
 /**
@@ -196,9 +263,6 @@ $(document).ready(function() {
 function setUser(user) {
     // Update username variable
     username = user;
-
-    // Update username display
-    $("#username").text("Logged in as " + user);
 }
 
 /**

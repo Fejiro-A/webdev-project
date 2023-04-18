@@ -63,30 +63,3 @@
 .send:hover {
     color: var(--primary-hover);
 }
-
-.fa-user {
-    margin: var(--nav-link-spacing-vertical);
-}
-
-#user-stats {
-    color: var(--primary);
-    transition: color 0.1s ease;
-    cursor: pointer;
-    margin-right: var(--nav-link-spacing-vertical);
-}
-
-#user-stats:hover {
-    color: var(--primary-hover);
-}
-
-dialog article {
-    width: 50vw;
-}
-
-dialog article header {
-    margin-bottom: var(--spacing);
-}
-
-dialog article table {
-    margin-bottom: 0;
-}

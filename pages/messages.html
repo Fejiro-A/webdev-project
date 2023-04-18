@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="/css/messages.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js" integrity="sha512-STof4xm1wgkfm7heWqFJVn58Hm3EtS31XFaagaa8VMReCXAkQnJZ+jEy8PCC/iT18dFy95WcExNHFTqLyp72eQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script type="text/javascript" src="/scripts/messages.js"></script>
+        <script src="https://kit.fontawesome.com/992e9c866a.js" crossorigin="anonymous"></script>
     </head>
     <body>
         <main class="container">
@@ -18,11 +19,10 @@
                     <li>/</li>
                     <li><a href="users.html" class="page-link"><strong>Users</strong></a></li>
                 </ul>
-                <ul>
-                    <li>
-                        <a class="secondary username" id="username"></a>
-                        <a href="javascript:;" class="secondary" id="logout-button" role="button">Logout</a>
-                    </li>
+                <ul id="user-nav">
+                    <li><a href="signup.html" class="page-link"><strong>Sign Up</strong></a></li>
+                    <li>/</li>
+                    <li><a href="login.html" class="page-link"><strong>Log in</strong></a></li>
                 </ul>
             </nav>
 
@@ -42,7 +42,39 @@
                 </div>
             </div>
             
+            <dialog id="user-info-modal">
+                <article id="user-info-modal-visible">
+                    <header>
+                        <a href="javascript:;" aria-label="Close" class="close" id="user-info-modal-close"></a>
+                        <div>
+                            <i class="fa-solid fa-user"></i>
+                            <span id="user-info-username">Username</span>
+                        </div>
+                    </header>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>ID</strong>
+                                </td>
+                                <td id="user-info-id"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>First Name</strong>
+                                </td>
+                                <td id="user-info-firstname"></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Last Name</strong>
+                                </td>
+                                <td id="user-info-lastname"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </article>
+            </dialog>
         </main>
-        
     </body>
 </html>
