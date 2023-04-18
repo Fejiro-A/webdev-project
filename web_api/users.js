@@ -211,7 +211,7 @@ async function configureRoutes(client, webSocketConnections) {
                 maxPage = 0;
             }
 
-            let results = { results: users, pagination: { currentPage: pageNumber, size: pageSize, total: total, maxPage: maxPage } };
+            let results = { results: users, pagination: { currentPage: pageNumber, size: users.length, total: total, maxPage: maxPage } };
 
             return res.json(results);
         } catch (e) {
@@ -332,11 +332,13 @@ async function configureRoutes(client, webSocketConnections) {
             }
             messages = messages.map(addStringDateToMessage);
 
-            let total = await User.countDocuments(filter);
+            let total = await Message.countDocuments(filter);
 
             // if (!total) {
             //     return res.status(404).json({ "error": "Finding count of messages failed" })
             // }
+
+            // console.log(total);
 
             let maxPage = Math.floor((total / pageSize) - 1);
 
@@ -344,7 +346,7 @@ async function configureRoutes(client, webSocketConnections) {
                 maxPage = 0;
             }
 
-            let results = { results: messages, pagination: { currentPage: pageNumber, size: pageSize, total: total, maxPage: maxPage } };
+            let results = { results: messages, pagination: { currentPage: pageNumber, size: messages.length, total: total, maxPage: maxPage } };
 
             return res.json(results);
         }
