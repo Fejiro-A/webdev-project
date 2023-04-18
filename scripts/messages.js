@@ -4,6 +4,8 @@ var username = "";
 // Contains the username that we are messaging
 var receiver = "";
 var receiver_id = "";
+var current_message;
+var current_time;
 
 // On document load
 $(document).ready(function() {
@@ -29,6 +31,8 @@ $(document).ready(function() {
                         },
                         success: function(res) {
                             $("#message-input").val('');
+                            message_time = Date.parse(res.results.slice(-1)[0].creationDate);
+                            current_time = message_time;
                             updateMessages(res.results);
                         },
                         error: function(hqXHR, textStatus, errorThrown) {
@@ -45,6 +49,7 @@ $(document).ready(function() {
             })
         }
     });
+    
 
     $("#logout-button").click(function() {
         localStorage.removeItem("token");
@@ -86,7 +91,7 @@ $(document).ready(function() {
             console.log(errorThrown);
         }
     });
-
+    
     // Get all messages between user and receiver
     $.ajax({
         type: "GET",
@@ -96,6 +101,8 @@ $(document).ready(function() {
             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
         },
         success: function(res) {
+            message_time = Date.parse(res.results.slice(-1)[0].creationDate);
+            current_time = message_time;
             updateMessages(res.results);
         },
         error: function(hqXHR, textStatus, errorThrown) {
@@ -105,7 +112,36 @@ $(document).ready(function() {
             alert("Could not retrieve messages.");
         }
     });
+    refreshMessages();
+    
 });
+
+//keep checks the newest message and refreshes the messages
+function refreshMessages(){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3000/users/" + receiver_id + "/messages",
+        contentType: "application/json",
+        beforeSend: function(request) {
+            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
+        },
+        success: function(res) {
+            message_time = Date.parse(res.results.slice(-1)[0].creationDate);
+            //compares the most recent message to the last refreshed message, and updates the page if theyre different
+            if (current_time != message_time){
+                current_time = message_time;
+                updateMessages(res.results);
+            }
+            setTimeout(refreshMessages, 1000);
+        },
+        error: function(hqXHR, textStatus, errorThrown) {
+            console.log(hqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+            alert("Could not retrieve messages.");
+        },
+    });
+}
 
 /**
  * Update the username that we are currently logged in as.
@@ -213,3 +249,4 @@ function updateDummyEnd() {
     // Add dummy end to end of messages
     $("#chat-box").append(dummyEnd);
 }
+
