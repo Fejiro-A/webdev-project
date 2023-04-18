@@ -4,11 +4,47 @@ var username = "";
 // Contains the username that we are messaging
 var receiver = "";
 var receiver_id = "";
-var current_message;
-var current_time;
+
+// Websocket for receiving new messages
+const socket = new WebSocket("ws://localhost:3000/chat");
+
+// Send auth when websocket opens
+socket.addEventListener("open", (event) => {
+    socket.send(JSON.stringify({
+        "label": "auth",
+        "token": localStorage.getItem("token")
+    }));
+});
+
+// Listen for messages from websocket
+socket.addEventListener("message", (event) => {
+    // Get user that we are chatting with
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const receiverId = urlParams.get("id");
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3000/users/" + receiverId + "/messages",
+        contentType: "application/json",
+        beforeSend: function(request) {
+            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
+        },
+        success: function(res) {
+            updateMessages(res.results);
+        },
+        error: function(hqXHR, textStatus, errorThrown) {
+            console.log(hqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+            alert("Could not retrieve messages.");
+        }
+    });
+})
 
 // On document load
 $(document).ready(function() {
+    // Send message when user hits send button
     $("#message-send").click(function() {
         if ($("#message-input").val() && username && receiver_id) {
             // Send message to receiver
@@ -31,8 +67,6 @@ $(document).ready(function() {
                         },
                         success: function(res) {
                             $("#message-input").val('');
-                            message_time = Date.parse(res.results.slice(-1)[0].creationDate);
-                            current_time = message_time;
                             updateMessages(res.results);
                         },
                         error: function(hqXHR, textStatus, errorThrown) {
@@ -50,7 +84,49 @@ $(document).ready(function() {
         }
     });
     
+    // Send message when user hits "enter" while in text field
+    $("#message-input").on("keyup", function(e) {
+        if (e.key === 'Enter' || e.keyCode === 13) {
+            if ($("#message-input").val() && username && receiver_id) {
+                // Send message to receiver
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:3000/users/" + receiver_id + "/messages",
+                    contentType: "application/json",
+                    beforeSend: function(request) {
+                        request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
+                    },
+                    data: JSON.stringify({content: $("#message-input").val()}),
+                    success: function(response) {
+                        // Update messages after sending
+                        $.ajax({
+                            type: "GET",
+                            url: "http://localhost:3000/users/" + receiverId + "/messages",
+                            contentType: "application/json",
+                            beforeSend: function(request) {
+                                request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
+                            },
+                            success: function(res) {
+                                $("#message-input").val('');
+                                updateMessages(res.results);
+                            },
+                            error: function(hqXHR, textStatus, errorThrown) {
+                                console.log(hqXHR);
+                                console.log(textStatus);
+                                console.log(errorThrown);
+                                alert("Could not retrieve messages.");
+                            }
+                        });
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        alert("Could not send message.");
+                    }
+                })
+            }
+        }
+    });
 
+    // Logout button
     $("#logout-button").click(function() {
         localStorage.removeItem("token");
         window.location.href = "../pages/login.html";
@@ -101,8 +177,6 @@ $(document).ready(function() {
             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
         },
         success: function(res) {
-            message_time = Date.parse(res.results.slice(-1)[0].creationDate);
-            current_time = message_time;
             updateMessages(res.results);
         },
         error: function(hqXHR, textStatus, errorThrown) {
@@ -112,36 +186,7 @@ $(document).ready(function() {
             alert("Could not retrieve messages.");
         }
     });
-    refreshMessages();
-    
 });
-
-//keep checks the newest message and refreshes the messages
-function refreshMessages(){
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:3000/users/" + receiver_id + "/messages",
-        contentType: "application/json",
-        beforeSend: function(request) {
-            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
-        },
-        success: function(res) {
-            message_time = Date.parse(res.results.slice(-1)[0].creationDate);
-            //compares the most recent message to the last refreshed message, and updates the page if theyre different
-            if (current_time != message_time){
-                current_time = message_time;
-                updateMessages(res.results);
-            }
-            setTimeout(refreshMessages, 1000);
-        },
-        error: function(hqXHR, textStatus, errorThrown) {
-            console.log(hqXHR);
-            console.log(textStatus);
-            console.log(errorThrown);
-            alert("Could not retrieve messages.");
-        },
-    });
-}
 
 /**
  * Update the username that we are currently logged in as.
@@ -185,11 +230,10 @@ function updateMessages(messages) {
                 request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
             },
             success: function(res) {
-                console.log(res.username);
                 message["senderUsername"] = res.username;
             },
             error: function(hqXHR, textStatus, errorThrown) {
-                message["senderUsername"] = "d";
+                message["senderUsername"] = "";
             }
         }));
     }
