@@ -51,8 +51,14 @@ $(document).ready(function() {
             usernameLink.innerText = res.username;
             username.appendChild(usernameLink);
 
+            // Open modal when clicking username
             username.addEventListener("click", function() {
-                console.log("hi");
+                $("#user-info-modal").attr("open", true);
+                $("#user-info-username").text(res.username);
+                $("#user-info-id").text(res._id);
+                $("#user-info-firstname").text(res.firstName);
+                $("#user-info-lastname").text(res.lastName);
+
                 $.ajax({
                     type: "GET",
                     url: "http://localhost:3000/users/stats",
@@ -85,9 +91,22 @@ $(document).ready(function() {
             $("#user-nav").append(logout);
         }
     });
+
+    // Handle closing modal
+    $("#user-info-modal-close").click(function() {
+        $("#user-info-modal").attr("open", false);
+    });
 });
 
+// Handle closing modal when clicking off it
+$(document).mouseup(function(e) {
+    var modal = $("#user-info-modal");
+    var visibleModal = $("#user-info-modal-visible");
 
+    if (!visibleModal.is(e.target) && visibleModal.has(e.target).length === 0) {
+        modal.attr("open", false);
+    }
+});
             
 //Creates table of users from list
 function addUsers(entries, except = null) {
