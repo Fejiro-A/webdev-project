@@ -14,53 +14,55 @@
         <main class="container">
             <nav>
                 <ul>
-                    <li><strong>App Name | Messages</strong></li>
-                </ul>
-                <ul>
-                    <li><a href="signup.html" class="page-link"><strong>Sign Up</strong></a></li>
+                    <li><strong id="receiver">Chat</strong></li>
+                    <li>/</li>
                     <li><a href="users.html" class="page-link"><strong>Users</strong></a></li>
-                    <li><a href="login.html" class="page-link"><strong>Log in</strong></a></li>
                 </ul>
                 <ul>
                     <li>
-                        <a class="secondary username" id="username">Logged in as USERNAME</a>
-                        <a href="javascript:;" class="secondary" role="button">Logout</a>
+                        <a class="secondary username" id="username"></a>
+                        <a href="javascript:;" class="secondary" id="logout-button" role="button">Logout</a>
                     </li>
                 </ul>
             </nav>
 
-            <article class="chat-container">
-                <div id="chat-box">
-                    <div class="dummy-start"></div>
-                    <div class="message">
-                        <div class="message-text">Test Message 1</div>
-                        <div class="message-sender">Username</div>
-                    </div>
-                    <div class="message self">
-                        <div class="message-text">Test Message 2</div>
-                        <div class="message-sender">Username</div>
-                    </div>
-                    <div class="message self">
-                        <div class="message-text">This is a longer message. Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</div>
-                        <div class="message-sender">Username</div>
-                    </div>
-                    <div class="message">
-                        <div class="message-text">Test Message 3</div>
-                        <div class="message-sender">Username</div>
-                    </div>
-                    <div class="message">
-                        <div class="message-text">Test Message 4</div>
-                        <div class="message-sender">Username</div>
-                    </div>
+            <div class="chat-full">
+                
 
-                    <div class="dummy-end">End of messages.</div>
+                <article class="chat-container">
+                    <div id="chat-box">
+                        <div class="dummy-start"></div>
+                        <div class="message">
+                            <div class="message-text">Test Message 1</div>
+                            <div class="message-sender">Username</div>
+                        </div>
+                        <div class="message self">
+                            <div class="message-text">Test Message 2</div>
+                            <div class="message-sender">Username</div>
+                        </div>
+                        <div class="message self">
+                            <div class="message-text">This is a longer message. Blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah</div>
+                            <div class="message-sender">Username</div>
+                        </div>
+                        <div class="message">
+                            <div class="message-text">Test Message 3</div>
+                            <div class="message-sender">Username</div>
+                        </div>
+                        <div class="message">
+                            <div class="message-text">Test Message 4</div>
+                            <div class="message-sender">Username</div>
+                        </div>
+    
+                        <div class="dummy-end">End of messages.</div>
+                    </div>
+                </article>
+    
+                <div class="input-container">
+                    <input id="message-input" type="text" placeholder="Type your message...">
+                    <button id="message-send">Send</button>
                 </div>
-            </article>
-
-            <div class="input-container">
-                <input id="message-input" type="text" placeholder="Type your message...">
-                <button id="message-send">Send</button>
             </div>
+            
         </main>
         
     </body>
