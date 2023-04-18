@@ -9,11 +9,6 @@ var receiver_id = "";
 $(document).ready(function() {
     $("#message-send").click(function() {
         if ($("#message-input").val() && username && receiver_id) {
-            // Add message to screen
-            //addMessage(username, $("#message-input").val());
-
-            
-
             // Send message to receiver
             $.ajax({
                 type: "POST",
@@ -24,7 +19,25 @@ $(document).ready(function() {
                 },
                 data: JSON.stringify({content: $("#message-input").val()}),
                 success: function(response) {
-                    console.log(response);
+                    // Update messages after sending
+                    $.ajax({
+                        type: "GET",
+                        url: "http://localhost:3000/users/" + receiverId + "/messages",
+                        contentType: "application/json",
+                        beforeSend: function(request) {
+                            request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
+                        },
+                        success: function(res) {
+                            $("#message-input").val('');
+                            updateMessages(res.results);
+                        },
+                        error: function(hqXHR, textStatus, errorThrown) {
+                            console.log(hqXHR);
+                            console.log(textStatus);
+                            console.log(errorThrown);
+                            alert("Could not retrieve messages.");
+                        }
+                    });
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     alert("Could not send message.");
@@ -83,7 +96,7 @@ $(document).ready(function() {
             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
         },
         success: function(res) {
-            console.log(res);
+            updateMessages(res.results);
         },
         error: function(hqXHR, textStatus, errorThrown) {
             console.log(hqXHR);
@@ -121,7 +134,36 @@ function setReceiver(user) {
 }
 
 function updateMessages(messages) {
-    console.log(messages);
+    $(".message").remove();
+
+    var sorted = [...messages];
+    sorted = sorted.sort((a, b) => Date.parse(b.creationDate) - Date.parse(a.creationDate)).reverse();
+    var promises = [];
+    for (let message of sorted) {
+        // Get message sender username
+        promises.push($.ajax({
+            type: "GET",
+            url: "http://localhost:3000/users/" + message.senderId,
+            contentType: "application/json",
+            beforeSend: function(request) {
+                request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
+            },
+            success: function(res) {
+                console.log(res.username);
+                message["senderUsername"] = res.username;
+            },
+            error: function(hqXHR, textStatus, errorThrown) {
+                message["senderUsername"] = "d";
+            }
+        }));
+    }
+
+    Promise.all(promises)
+    .then(responseList => {
+        for (let message of sorted) {
+            addMessage(message.senderUsername, message.content);
+        }
+    });
 }
 
 /**
