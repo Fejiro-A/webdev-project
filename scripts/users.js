@@ -8,7 +8,20 @@ $(document).ready(function() {
             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
         },
         success: function(res) {
-            addUsers(res.results);
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:3000/auth/logged-in",
+                contentType: "application/json",
+                beforeSend: function(request) {
+                    request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
+                },
+                success: function(result) {
+                    addUsers(res.results, result._id);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    addUsers(res.results);
+                }
+            });
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(errorThrown);
@@ -28,7 +41,34 @@ $(document).ready(function() {
             $("#user-nav").empty();
 
             var username = document.createElement("li");
-            username.innerText = "Logged in as " + res.username;
+            username.id = "user-stats";
+            var icon = document.createElement("i");
+            icon.classList.add("fa-solid");
+            icon.classList.add("fa-user")
+            icon.classList.add("profile-icon");
+            username.appendChild(icon);
+            var usernameLink = document.createElement("a");
+            usernameLink.innerText = res.username;
+            username.appendChild(usernameLink);
+
+            username.addEventListener("click", function() {
+                console.log("hi");
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:3000/users/stats",
+                    contentType: "application/json",
+                    beforeSend: function(request) {
+                        request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
+                    },
+                    success: function(res) {
+                        console.log(res);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(errorThrown);
+                        alert("Error fetching user stats.");
+                    }
+                });
+            });
 
             var logout = document.createElement("a");
             logout.href = "javascript:;";
@@ -47,10 +87,15 @@ $(document).ready(function() {
     });
 });
 
+
             
 //Creates table of users from list
-function addUsers(entries) {
+function addUsers(entries, except = null) {
     for (i in entries){
+        if (except && except === entries[i]._id) {
+            continue;
+        }
+
         let user = document.createElement("tr");
         user.id = entries[i]._id;
 
