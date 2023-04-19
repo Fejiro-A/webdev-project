@@ -49,7 +49,7 @@ Below is an image of the user stats page demonstrating the activity log.
 
 ![User stats page](./user-stats-demo.png)
 
-## Contributers
+## Contributors
 
 - Fejiro-A
 - jonahbaayen (incl. nyuppo)
