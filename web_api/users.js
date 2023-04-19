@@ -188,7 +188,7 @@ async function configureRoutes(client, webSocketConnections) {
     let Request = await client.db().collection(constants.MONGO_REQUEST_COLLECTION_NAME);
 
     // Get a list of users
-    router.get("/", async (req, res, next) => {
+    router.post("/", async (req, res, next) => {
         try {
             let [filter, pageNumber, pageSize, sort] = paginationUtils.extractFilterAndPaginationParams(req);
 
@@ -219,7 +219,7 @@ async function configureRoutes(client, webSocketConnections) {
         }
     });
 
-    router.get("/stats", async (req, res, next) => {
+    router.post("/stats", async (req, res, next) => {
         try {
             let userId = req.user._id;
             let earliest = req.body.earliest;
@@ -313,7 +313,7 @@ async function configureRoutes(client, webSocketConnections) {
     });
 
     // Get messages between logged-in user and user specified by :userId
-    router.get("/:userId/messages", async (req, res, next) => {
+    router.post("/:userId/messages/list", async (req, res, next) => {
         try {
             let [filter, pageNumber, pageSize, sort] = paginationUtils.extractFilterAndPaginationParams(req);
 

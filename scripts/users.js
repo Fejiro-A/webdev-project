@@ -1,7 +1,7 @@
 $(document).ready(function() {
     // Get list of users
     $.ajax({
-        type: "GET",
+        type: "POST",
         url: "http://localhost:3000/users/",
         contentType: "application/json",
         beforeSend: function(request) {
@@ -60,7 +60,7 @@ $(document).ready(function() {
                 $("#user-info-lastname").text(res.lastName);
 
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "http://localhost:3000/users/stats",
                     contentType: "application/json",
                     beforeSend: function(request) {

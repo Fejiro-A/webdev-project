@@ -24,9 +24,15 @@ socket.addEventListener("message", (event) => {
     const receiverId = urlParams.get("id");
 
     $.ajax({
-        type: "GET",
-        url: "http://localhost:3000/users/" + receiverId + "/messages",
+        type: "POST",
+        url: "http://localhost:3000/users/" + receiverId + "/messages/list",
         contentType: "application/json",
+        data: JSON.stringify({
+            "pagination": {
+                "pageNo": 0,
+                "pageSize": 100
+            }
+        }),
         beforeSend: function(request) {
             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
         },
@@ -59,9 +65,15 @@ $(document).ready(function() {
                 success: function(response) {
                     // Update messages after sending
                     $.ajax({
-                        type: "GET",
-                        url: "http://localhost:3000/users/" + receiverId + "/messages",
+                        type: "POST",
+                        url: "http://localhost:3000/users/" + receiverId + "/messages/list",
                         contentType: "application/json",
+                        data: JSON.stringify({
+                            "pagination": {
+                                "pageNo": 0,
+                                "pageSize": 100
+                            }
+                        }),
                         beforeSend: function(request) {
                             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
                         },
@@ -100,9 +112,15 @@ $(document).ready(function() {
                     success: function(response) {
                         // Update messages after sending
                         $.ajax({
-                            type: "GET",
-                            url: "http://localhost:3000/users/" + receiverId + "/messages",
+                            type: "POST",
+                            url: "http://localhost:3000/users/" + receiverId + "/messages/list",
                             contentType: "application/json",
+                            data: JSON.stringify({
+                                "pagination": {
+                                    "pageNo": 0,
+                                    "pageSize": 100
+                                }
+                            }),
                             beforeSend: function(request) {
                                 request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
                             },
@@ -185,7 +203,7 @@ $(document).ready(function() {
                 $("#user-info-lastname").text(res.lastName);
 
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "http://localhost:3000/users/stats",
                     contentType: "application/json",
                     beforeSend: function(request) {
@@ -253,13 +271,20 @@ $(document).ready(function() {
     
     // Get all messages between user and receiver
     $.ajax({
-        type: "GET",
-        url: "http://localhost:3000/users/" + receiverId + "/messages",
+        type: "POST",
+        url: "http://localhost:3000/users/" + receiverId + "/messages/list",
         contentType: "application/json",
+        data: JSON.stringify({
+            "pagination": {
+                "pageNo": 0,
+                "pageSize": 100
+            }
+        }),
         beforeSend: function(request) {
             request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem("token"));
         },
         success: function(res) {
+            console.log(res);
             updateMessages(res.results);
         },
         error: function(hqXHR, textStatus, errorThrown) {
