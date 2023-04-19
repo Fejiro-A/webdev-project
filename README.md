@@ -41,11 +41,13 @@ It is important that users have the neccessary requirements installed properly o
 
 //steps go here//
 
-## Demonstration Video
+## Demonstration
 
-Below is a link to a demonstration video showing the features of our application.
+[Click here for a link](https://www.youtube.com/watch?v=7xEQRFxXafk) to a demonstration video showing the features of our application.
 
-//link goes here//
+Below is an image of the user stats page demonstrating the activity log.
+
+![User stats page](./user-stats-demo.png)
 
 ## Contributers
 
