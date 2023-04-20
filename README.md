@@ -42,7 +42,7 @@ It is important that users have the neccessary requirements installed properly o
 1. Launch a server using MongoDB on port 27017
 2. Open the project using Visual Studio Code
 3. In the terminal, navigate to the web_api folder and enter "node index.js"
-4. Open the login page or sign up page with Live Server extension for Visual Studio Code
+4. Open the login page or sign up html page with Live Server extension for Visual Studio Code
 
 ## Demonstration
 
