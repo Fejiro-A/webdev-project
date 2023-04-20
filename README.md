@@ -29,22 +29,20 @@ The app is designed to serve as a direct communication channel for any connected
 
 ## Special Instructions for Execution
 
-// baseplate incase there is something needed, will be deleted otherwise//
-
 It is important that users have the neccessary requirements installed properly on their system to run our app and all of it's features. Here is a list of requirements that our app needs:
 
 - MongoDB
 - Mongosh
-- visual studio code
-- Live server extension for visual studio code
+- Visual Studio Code
+- Live Server extension for Visual Studio Code
 
 
 ## How to Execute the Application
 
-1. Launch a server using mongoDB
-2. Open the project using visual studio code
+1. Launch a server using MongoDB on port 27017
+2. Open the project using Visual Studio Code
 3. In the terminal, navigate to the web_api folder and enter "node index.js"
-4. Open the login page or sign up page with live server extension for visual studio code
+4. Open the login page or sign up page with Live Server extension for Visual Studio Code
 
 ## Demonstration
 
